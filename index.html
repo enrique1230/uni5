@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problema 1 y 2</title>
+    <script>
+        function obtenerCodigoASCII() {
+            // Obtiene el valor del input
+            var numero = document.getElementById("numero").value;
+
+            // Verifica si el input es un número
+            if (isNaN(numero)) {
+                alert("Por favor, ingresa un número válido.");
+                return;
+            }
+
+            // Realiza una solicitud AJAX para obtener el resultado del código ASCII
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Muestra el resultado en el div con id "resultado"
+                    document.getElementById("resultado").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "obtener_codigo_ascii.php?numero=" + numero, true);
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    
+   <section>
+   <?php
+   function retornarColorHexa($rojo,$verde,$azul)
+   {
+    $color=sprintf("#%02X%02X%02X",$rojo,$verde,$azul);
+    return $color;
+   }
+   ?>
+   <table>
+    <tr>
+        <td bgcolor="<?php echo retornarColorHexa(255,0,0)?>">Luis Enrique</td>
+        <td bgcolor="<?php echo retornarColorHexa(0,255,0)?>">Flores Rodriguez</td>
+        <td bgcolor="<?php echo retornarColorHexa(0,0,255)?>">21091002</td>
+    </tr>
+   </table>
+   </section>
+   <section>
+    <h2>Convertir a ASCII</h2>
+
+    <label for="numero">Ingresa un número:</label>
+    <input type="text" id="numero" name="numero" required>
+
+    <button onclick="obtenerCodigoASCII()">Obtener Código ASCII</button>
+
+    <div id="resultado"></div>
+</section>
+</body>
+</html>
